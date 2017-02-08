@@ -12,6 +12,16 @@
 		937B78741E4B0CA20055C0F3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 937B78721E4B0CA20055C0F3 /* Main.storyboard */; };
 		937B78761E4B0CA20055C0F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 937B78751E4B0CA20055C0F3 /* Assets.xcassets */; };
 		937B78791E4B0CA20055C0F3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 937B78771E4B0CA20055C0F3 /* LaunchScreen.storyboard */; };
+		937B788B1E4B0CF70055C0F3 /* MTImageLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937B78811E4B0CF70055C0F3 /* MTImageLibrary.swift */; };
+		937B788C1E4B0CF70055C0F3 /* MTImageLibrary.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 937B78821E4B0CF70055C0F3 /* MTImageLibrary.xcassets */; };
+		937B788D1E4B0CF70055C0F3 /* MTImageLibraryCrop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937B78831E4B0CF70055C0F3 /* MTImageLibraryCrop.swift */; };
+		937B788E1E4B0CF70055C0F3 /* MTImageLibraryDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937B78841E4B0CF70055C0F3 /* MTImageLibraryDataManager.swift */; };
+		937B788F1E4B0CF70055C0F3 /* MTImageLibraryDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937B78851E4B0CF70055C0F3 /* MTImageLibraryDetails.swift */; };
+		937B78901E4B0CF70055C0F3 /* MTImageLibraryDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937B78861E4B0CF70055C0F3 /* MTImageLibraryDetailsCell.swift */; };
+		937B78911E4B0CF70055C0F3 /* MTImageLibraryDetailsToolBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937B78871E4B0CF70055C0F3 /* MTImageLibraryDetailsToolBar.swift */; };
+		937B78921E4B0CF70055C0F3 /* MTImageLibraryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937B78881E4B0CF70055C0F3 /* MTImageLibraryList.swift */; };
+		937B78931E4B0CF70055C0F3 /* MTImageLibraryPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937B78891E4B0CF70055C0F3 /* MTImageLibraryPreview.swift */; };
+		937B78941E4B0CF70055C0F3 /* MTImageLibraryZoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937B788A1E4B0CF70055C0F3 /* MTImageLibraryZoomView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +32,16 @@
 		937B78751E4B0CA20055C0F3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		937B78781E4B0CA20055C0F3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		937B787A1E4B0CA20055C0F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		937B78811E4B0CF70055C0F3 /* MTImageLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTImageLibrary.swift; sourceTree = "<group>"; };
+		937B78821E4B0CF70055C0F3 /* MTImageLibrary.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MTImageLibrary.xcassets; sourceTree = "<group>"; };
+		937B78831E4B0CF70055C0F3 /* MTImageLibraryCrop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTImageLibraryCrop.swift; sourceTree = "<group>"; };
+		937B78841E4B0CF70055C0F3 /* MTImageLibraryDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTImageLibraryDataManager.swift; sourceTree = "<group>"; };
+		937B78851E4B0CF70055C0F3 /* MTImageLibraryDetails.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTImageLibraryDetails.swift; sourceTree = "<group>"; };
+		937B78861E4B0CF70055C0F3 /* MTImageLibraryDetailsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTImageLibraryDetailsCell.swift; sourceTree = "<group>"; };
+		937B78871E4B0CF70055C0F3 /* MTImageLibraryDetailsToolBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTImageLibraryDetailsToolBar.swift; sourceTree = "<group>"; };
+		937B78881E4B0CF70055C0F3 /* MTImageLibraryList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTImageLibraryList.swift; sourceTree = "<group>"; };
+		937B78891E4B0CF70055C0F3 /* MTImageLibraryPreview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTImageLibraryPreview.swift; sourceTree = "<group>"; };
+		937B788A1E4B0CF70055C0F3 /* MTImageLibraryZoomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTImageLibraryZoomView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +58,7 @@
 		937B78621E4B0CA20055C0F3 = {
 			isa = PBXGroup;
 			children = (
+				937B78801E4B0CF70055C0F3 /* MTImageLibrary */,
 				937B786D1E4B0CA20055C0F3 /* MTImageLibraryDemo */,
 				937B786C1E4B0CA20055C0F3 /* Products */,
 			);
@@ -62,6 +83,23 @@
 				937B787A1E4B0CA20055C0F3 /* Info.plist */,
 			);
 			path = MTImageLibraryDemo;
+			sourceTree = "<group>";
+		};
+		937B78801E4B0CF70055C0F3 /* MTImageLibrary */ = {
+			isa = PBXGroup;
+			children = (
+				937B78821E4B0CF70055C0F3 /* MTImageLibrary.xcassets */,
+				937B78811E4B0CF70055C0F3 /* MTImageLibrary.swift */,
+				937B78881E4B0CF70055C0F3 /* MTImageLibraryList.swift */,
+				937B78851E4B0CF70055C0F3 /* MTImageLibraryDetails.swift */,
+				937B78861E4B0CF70055C0F3 /* MTImageLibraryDetailsCell.swift */,
+				937B78871E4B0CF70055C0F3 /* MTImageLibraryDetailsToolBar.swift */,
+				937B78891E4B0CF70055C0F3 /* MTImageLibraryPreview.swift */,
+				937B78831E4B0CF70055C0F3 /* MTImageLibraryCrop.swift */,
+				937B788A1E4B0CF70055C0F3 /* MTImageLibraryZoomView.swift */,
+				937B78841E4B0CF70055C0F3 /* MTImageLibraryDataManager.swift */,
+			);
+			path = MTImageLibrary;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -124,6 +162,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				937B788C1E4B0CF70055C0F3 /* MTImageLibrary.xcassets in Resources */,
 				937B78791E4B0CA20055C0F3 /* LaunchScreen.storyboard in Resources */,
 				937B78761E4B0CA20055C0F3 /* Assets.xcassets in Resources */,
 				937B78741E4B0CA20055C0F3 /* Main.storyboard in Resources */,
@@ -137,7 +176,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				937B788D1E4B0CF70055C0F3 /* MTImageLibraryCrop.swift in Sources */,
+				937B788B1E4B0CF70055C0F3 /* MTImageLibrary.swift in Sources */,
+				937B788E1E4B0CF70055C0F3 /* MTImageLibraryDataManager.swift in Sources */,
+				937B78911E4B0CF70055C0F3 /* MTImageLibraryDetailsToolBar.swift in Sources */,
+				937B788F1E4B0CF70055C0F3 /* MTImageLibraryDetails.swift in Sources */,
+				937B78941E4B0CF70055C0F3 /* MTImageLibraryZoomView.swift in Sources */,
+				937B78921E4B0CF70055C0F3 /* MTImageLibraryList.swift in Sources */,
 				937B78711E4B0CA20055C0F3 /* ViewController.swift in Sources */,
+				937B78931E4B0CF70055C0F3 /* MTImageLibraryPreview.swift in Sources */,
+				937B78901E4B0CF70055C0F3 /* MTImageLibraryDetailsCell.swift in Sources */,
 				937B786F1E4B0CA20055C0F3 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -263,6 +311,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = ZV5SVKKPDA;
 				INFOPLIST_FILE = MTImageLibraryDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mtry.MTImageLibraryDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -276,6 +325,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = ZV5SVKKPDA;
 				INFOPLIST_FILE = MTImageLibraryDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mtry.MTImageLibraryDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -302,6 +352,7 @@
 				937B787F1E4B0CA20055C0F3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
