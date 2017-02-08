@@ -13,19 +13,17 @@ class ViewController: UIViewController {
     func touchUpInsideCroperButton(_ button:UIButton) {
         MTImageLibrary.sharedInstance.show(inController: self).error { (message) in
             print(message)
-            }.croper { (image) in
-                self.imageView.image = image
+        }.croper { (image) in
+            self.imageView.image = image
         }
-        
     }
     
     func touchUpInsidePickerButton(_ button:UIButton) {
         MTImageLibrary.sharedInstance.show(inController: self).error { (message) in
             print(message)
-            }.picker(maxNumber: 3) { (images) in
-                print(images)
+        }.picker(maxNumber: 3) { (images) in
+            print(images)
         }
-        
     }
     
     lazy var imageView: UIImageView = {
