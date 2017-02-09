@@ -11,19 +11,8 @@ import Photos
 
 class MTImageLibraryCrop: UIViewController {
     
-    fileprivate lazy var scrollView: UIScrollView = {
-        let view = UIScrollView()
-        view.showsVerticalScrollIndicator = false
-        view.showsHorizontalScrollIndicator = false
-        view.clipsToBounds = false
-        view.delegate = self
-        view.maximumZoomScale = 5
-        view.minimumZoomScale = 1
-        return view
-    }()
-    
-    fileprivate lazy var imageView: UIImageView = {
-        let view = UIImageView()
+    fileprivate lazy var contentView: MTImageLibraryCropContentView = {
+        let view = MTImageLibraryCropContentView()
         return view
     }()
     
@@ -71,15 +60,14 @@ class MTImageLibraryCrop: UIViewController {
         self.view.backgroundColor = UIColor.black
         self.view.clipsToBounds = true
         
-        self.scrollView.addSubview(self.imageView)
-        self.view.addSubview(self.scrollView)
+        self.view.addSubview(self.contentView)
         self.view.addSubview(self.maskView)
         self.view.addSubview(self.bottomView)
         self.bottomView.addSubview(self.cancelButton)
         self.bottomView.addSubview(self.finishButton)
         
         self.asset.image(size: PHImageManagerMaximumSize) { (image) in
-            self.imageView.image = image
+            self.contentView.imageView.image = image
             self.view.setNeedsLayout()
         }
     }
@@ -121,11 +109,53 @@ class MTImageLibraryCrop: UIViewController {
         self.maskView.frame = self.view.bounds
         self.maskView.setNeedsDisplay()
         
-        self.scrollView.zoomScale = 1
-        self.update()
+        self.contentView.frame = self.view.bounds
+        self.contentView.cropFrame = frame
+        self.contentView.setNeedsLayout()
     }
     
-    fileprivate func update() {
+    func touchUpInsideCancelButton(_ button: UIButton) {
+        _ = self.navigationController?.popViewController(animated: true)
+    }
+    
+    func touchUpInsideFinishButton(_ button: UIButton) {
+        let image = self.contentView.cropImage()
+        MTImageLibrary.sharedInstance.croperComplete?(image)
+        self.navigationController?.dismiss(animated: true)
+    }
+}
+
+fileprivate class MTImageLibraryCropContentView: UIView {
+    
+    fileprivate lazy var scrollView: UIScrollView = {
+        let view = UIScrollView()
+        view.showsVerticalScrollIndicator = false
+        view.showsHorizontalScrollIndicator = false
+        view.clipsToBounds = false
+        view.delegate = self
+        view.maximumZoomScale = 5
+        view.minimumZoomScale = 1
+        return view
+    }()
+    
+    fileprivate lazy var imageView: UIImageView = {
+        let view = UIImageView()
+        return view
+    }()
+    
+    var cropFrame: CGRect = .zero
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.addSubview(self.scrollView)
+        self.scrollView.addSubview(self.imageView)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
         
         guard self.imageView.image != nil else {
             self.imageView.frame = .zero
@@ -134,7 +164,7 @@ class MTImageLibraryCrop: UIViewController {
         
         let imageSize: CGSize = self.imageView.image?.size ?? .zero
         let imageWHScale = imageSize.width / imageSize.height
-        let containerSize = CGSize(width: self.view.frame.width, height: ((UIApplication.shared.statusBarOrientation == .portrait || UIApplication.shared.statusBarOrientation == .portraitUpsideDown) ? self.view.frame.height : self.maskView.cropFrame.height))
+        let containerSize = CGSize(width: self.frame.width, height: ((UIApplication.shared.statusBarOrientation == .portrait || UIApplication.shared.statusBarOrientation == .portraitUpsideDown) ? self.frame.height : self.cropFrame.height))
         let containerWHScale = containerSize.width / containerSize.height
         
         var frame: CGRect = .zero
@@ -147,7 +177,7 @@ class MTImageLibraryCrop: UIViewController {
         }
         self.imageView.frame = frame
         
-        var contentFrame = self.maskView.cropFrame
+        var contentFrame = self.cropFrame
         var contentSize: CGSize = .zero
         var contentOffset: CGPoint = .zero
         
@@ -156,7 +186,7 @@ class MTImageLibraryCrop: UIViewController {
             contentOffset.y = (self.imageView.frame.height - contentFrame.height)/2
         } else {
             contentFrame.size.height = self.imageView.frame.height
-            contentFrame.origin.y = self.maskView.cropFrame.minY + (self.maskView.cropFrame.height - self.imageView.frame.height)/2
+            contentFrame.origin.y = self.cropFrame.minY + (self.cropFrame.height - self.imageView.frame.height)/2
             contentSize.height = self.imageView.frame.height + 1
         }
         
@@ -165,7 +195,7 @@ class MTImageLibraryCrop: UIViewController {
             contentOffset.x = (self.imageView.frame.width - contentFrame.width)/2
         } else {
             contentFrame.size.width = self.imageView.frame.width
-            contentFrame.origin.x = self.maskView.cropFrame.minX + (self.maskView.cropFrame.width - self.imageView.frame.width)/2
+            contentFrame.origin.x = self.cropFrame.minX + (self.cropFrame.width - self.imageView.frame.width)/2
             contentSize.width = self.imageView.frame.width + 1
         }
         
@@ -175,22 +205,16 @@ class MTImageLibraryCrop: UIViewController {
         self.scrollView.contentInset = .zero
     }
     
-    func touchUpInsideCancelButton(_ button: UIButton) {
-        _ = self.navigationController?.popViewController(animated: true)
-    }
-    
-    func touchUpInsideFinishButton(_ button: UIButton) {
+    func cropImage() -> UIImage? {
         var cropRect: CGRect = .zero
         cropRect.origin.x = floor(self.scrollView.contentOffset.x + self.scrollView.contentInset.left + 0.5)
         cropRect.origin.y = floor(self.scrollView.contentOffset.y + self.scrollView.contentInset.top + 0.5)
-        cropRect.size.width = floor(self.imageView.frame.width < self.maskView.cropFrame.width ? self.imageView.frame.width : self.maskView.cropFrame.width) - 1
-        cropRect.size.height = floor(self.imageView.frame.height < self.maskView.cropFrame.height ? self.imageView.frame.height : self.maskView.cropFrame.height) - 1
-        let image = self.crop(cropView: self.imageView, cropRect: cropRect)
-        MTImageLibrary.sharedInstance.croperComplete?(image)
-        self.navigationController?.dismiss(animated: true)
+        cropRect.size.width = floor(self.imageView.frame.width < self.cropFrame.width ? self.imageView.frame.width : self.cropFrame.width) - 1
+        cropRect.size.height = floor(self.imageView.frame.height < self.cropFrame.height ? self.imageView.frame.height : self.cropFrame.height) - 1
+        return self.crop(cropView: self.imageView, cropRect: cropRect)
     }
     
-    fileprivate func crop(cropView: UIImageView, cropRect: CGRect) -> UIImage? {
+    private func crop(cropView: UIImageView, cropRect: CGRect) -> UIImage? {
         let showImageSize = cropView.frame.size
         let UIScreenScale = UIScreen.main.scale
         if let originalImage = cropView.image {
@@ -207,14 +231,24 @@ class MTImageLibraryCrop: UIViewController {
         }
         return nil
     }
+    
+    override fileprivate func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        var hitTestView = super.hitTest(point, with: event)
+        if self.cropFrame.contains(point) {
+            if hitTestView == self {
+                hitTestView = self.imageView
+            }
+        }
+        return hitTestView
+    }
 }
 
-extension MTImageLibraryCrop: UIScrollViewDelegate {
+extension MTImageLibraryCropContentView: UIScrollViewDelegate {
     
     func scrollViewDidZoom(_ scrollView: UIScrollView) {
         
         if self.imageView.frame.height >= self.scrollView.frame.height {
-            if self.imageView.frame.height <= self.maskView.cropFrame.height {
+            if self.imageView.frame.height <= self.cropFrame.height {
                 self.scrollView.contentInset.top = -(self.imageView.frame.height - self.scrollView.frame.height)/2
                 self.scrollView.contentInset.bottom = self.scrollView.contentInset.top
                 
@@ -222,16 +256,16 @@ extension MTImageLibraryCrop: UIScrollViewDelegate {
                 contentSize.height = self.imageView.frame.height + 1
                 self.scrollView.contentSize = contentSize
             } else {
-                self.scrollView.contentInset.top = -(self.maskView.cropFrame.height - self.scrollView.frame.height)/2
+                self.scrollView.contentInset.top = -(self.cropFrame.height - self.scrollView.frame.height)/2
                 self.scrollView.contentInset.bottom = self.scrollView.contentInset.top
                 
                 var contentSize = self.scrollView.contentSize
-                contentSize.height = self.maskView.cropFrame.height + 1
+                contentSize.height = self.cropFrame.height + 1
             }
         }
         
         if self.imageView.frame.width >= self.scrollView.frame.width {
-            if self.imageView.frame.width <= self.maskView.cropFrame.width {
+            if self.imageView.frame.width <= self.cropFrame.width {
                 self.scrollView.contentInset.left = -(self.imageView.frame.width - self.scrollView.frame.width)/2
                 self.scrollView.contentInset.right = self.scrollView.contentInset.left
                 
@@ -239,11 +273,11 @@ extension MTImageLibraryCrop: UIScrollViewDelegate {
                 contentSize.width = self.imageView.frame.width + 1
                 self.scrollView.contentSize = contentSize
             } else {
-                self.scrollView.contentInset.left = -(self.maskView.cropFrame.width - self.scrollView.frame.width)/2
+                self.scrollView.contentInset.left = -(self.cropFrame.width - self.scrollView.frame.width)/2
                 self.scrollView.contentInset.right = self.scrollView.contentInset.left
                 
                 var contentSize = self.scrollView.contentSize
-                contentSize.width = self.maskView.cropFrame.width + 1
+                contentSize.width = self.cropFrame.width + 1
             }
         }
     }
